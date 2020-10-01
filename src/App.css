@@ -6,39 +6,27 @@ body {
 
 .Grid{
   border: 2px solid #e4e4e4;
-  border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
   margin: auto;
   width: 400px;
 }
 
-.Column {
+.Row {
   background-color: #FFFFFF;
   display: flex;
-  flex-direction: column;
-  height: 400px;
+  flex-direction: row;
+  height: 135px;
   justify-content: space-between;
   width: 400px;
 }
 
-.Column:first-child {
-  border-bottom-left-radius: 10px;
-  border-top-left-radius: 10px;
-}
-
-.Column:nth-child(3) {
-  border-bottom-right-radius: 10px;
-  border-top-right-radius: 10px;
-}
-
-.Column div {
+.Square {
+  background-color: #FFFFFF;
   border: 1px solid #e4e4e4;
-  border-radius: 10px;
+  flex-direction: column;
   font-size: 100px;
-  font-weight : 100;
   height: 125px;
   margin: 5px;
+  padding-left: 25px;
   text-align: center;
   vertical-align: middle;
   width: 125px;
@@ -46,17 +34,23 @@ body {
 
 .Restart {
   background-color: #FFFFFF;
-  border: 2px solid darkgray;
+  border: 2px solid #454545;
   border-radius: 10px;
-  color: darkgray;
+  color: #454545;
   font-size: 18px;
   height: 50px;
+  margin-bottom: 50px;
   margin-top: 25px;
   padding: 10px;
 }
 
 .Restart:hover {
-   background-color: darkgray;
+   background-color: #454545;
    color: #FFFFFF;
    cursor: pointer;
+}
+
+.Winner {
+   color: #454545;
+   font-size: 25px;
 }
