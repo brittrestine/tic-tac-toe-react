@@ -6,7 +6,7 @@ function Game() {
   const [firstRow, setFirstRow] = useState(['','',''])
   const [secondRow, setSecondRow] = useState(['','',''])
   const [thirdRow, setThirdRow] = useState(['','',''])
-  const [isNext, setIsNext] = useState(false)
+  const [isNext, setIsNext] = useState('O')
   const [isWinner, setIsWinner] = useState(false)
 
   useEffect(() => {
@@ -15,26 +15,40 @@ function Game() {
 
   const calculateWinner = () => {
     const sameRowWinner = firstRow.every(v => v.length > 0 && v === firstRow[0]) || secondRow.every(v => v.length > 0 && v === secondRow[0]) || thirdRow.every(v => v.length > 0 && v === thirdRow[0])
-    setIsWinner(sameRowWinner)
+    const sameColumnWinner = (firstRow[0].length > 0 && firstRow[0] === secondRow[0] && firstRow[0] === thirdRow[0])
+    setIsWinner(sameRowWinner || sameColumnWinner)
   }
 
   const onClick = (index, row) => {
-    setIsNext(currentIsNext => !currentIsNext)
-    const valueToUse = isNext ? 'X' : 'O'
+    let res
 
     switch (row) {
       case 'firstRow':
-        const updatedFirstRow = Object.assign([], firstRow, {[index]: valueToUse});
-        setFirstRow(updatedFirstRow)
-        break
+       if (firstRow[index].length > 0) {
+         res = firstRow
+       } else {
+         res = setFirstRow(Object.assign([], firstRow, {[index]: isNext}))
+         setIsNext(isNext === 'O' ? 'X' : 'O')
+       }
+        return res
 
       case 'secondRow':
-        const updatedSecondRow = Object.assign([], secondRow, {[index]: valueToUse});
-        return setSecondRow(updatedSecondRow)
+       if (secondRow[index].length > 0) {
+         res = secondRow
+       } else {
+         res = setSecondRow(Object.assign([], secondRow, {[index]: isNext}))
+         setIsNext(isNext === 'O' ? 'X' : 'O')
+       }
+        return res
 
       case 'thirdRow':
-        const updatedThirdRow = Object.assign([], thirdRow, {[index]: valueToUse});
-        return setThirdRow(updatedThirdRow)
+      if (thirdRow[index].length > 0) {
+        res = thirdRow
+      } else {
+        res = setThirdRow(Object.assign([], thirdRow, {[index]: isNext}))
+        setIsNext(isNext === 'O' ? 'X' : 'O')
+      }
+       return res
 
       default:
         return
@@ -64,3 +78,6 @@ function Game() {
 }
 
 export default Game
+
+// setIsNext(currentIsNext => !currentIsNext)
+// return thirdRow[index].length > 0 ? thirdRow : setThirdRow(Object.assign([], thirdRow, {[index]: valueToUse}))
